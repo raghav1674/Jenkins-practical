@@ -1,0 +1,10 @@
+kubectl run web${BUILD_NUMBER} --image=raghav1674/github-finder:v1 -n ownworld
+kubectl expose pod/web${BUILD_NUMBER} --port=80 --type=NodePort -n ownworld
+kubectl get svc -n ownworld
+svcPort=$(kubectl get svc -n ownworld -o jsonpath={.items[*].spec.ports[*].nodePort})
+nodeIp=65.0.26.188
+
+for ports in $svcPort
+	do
+	 	echo "Visit http://${nodeIp}:${ports}"
+	done
